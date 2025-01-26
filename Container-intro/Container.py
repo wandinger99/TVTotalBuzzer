@@ -88,6 +88,15 @@ class Container(Object):
             raise TypeError("background_color must be of type pygame.Color.")
         self._background_color = color
 
+    def handle_key_press(self, key):
+        """
+        Handle all key press events by propagating the key press to 
+        all objects in the container.
+        """
+        for obj in self.get_objects():
+            if hasattr(obj, "handle_key_press"):  # Ensure the object has the method
+                obj.handle_key_press(key)
+    
     def draw(self, screen):
         """Draws all objects contained in this container."""
         for obj in self.get_objects():

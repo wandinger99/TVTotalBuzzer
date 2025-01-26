@@ -44,4 +44,10 @@ class Object:
         """
         pass
 
-
+    @abstractmethod
+    def handle_key_press(self, key: int):
+        """
+        Abstract method to draw the object on the screen.
+        Must be implemented by subclasses.
+        """
+        pass

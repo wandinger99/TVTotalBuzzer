@@ -69,19 +69,8 @@ def display_container_dyn(container):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:  # Check for key press
-                if event.key == pygame.K_g:  # Check if the 'G' key is pressed
-                    print("The 'G' key was pressed!")
-                    # Trigger desired behavior here
-                    for obj in container.get_objects():
-                        if isinstance(obj, (Circle, Text)):
-                            # Generate a random color
-                            random_color = pygame.Color(
-                                random.randint(0, 255),  # Random Red component
-                                random.randint(0, 255),  # Random Green component
-                                random.randint(0, 255)   # Random Blue component
-                            )
-                            obj.color = random_color  # Change color of the circle
+            elif event.type == pygame.KEYDOWN:  # Handle key press
+                container.handle_key_press(event.key)
 
         # Clear the screen
         screen.fill(container.background_color)
