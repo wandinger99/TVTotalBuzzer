@@ -71,8 +71,7 @@ def display_container_dyn(container):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
-            elif event.type == pygame.KEYDOWN:  # Handle key press
-                container.handle_key_press(event.key)
+            container.handle_key_press(event)
 
         # Clear the screen
         screen.fill(container.background_color)

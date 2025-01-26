@@ -65,11 +65,17 @@ class Buzzer(Object):
             raise TypeError("Outer color must be a pygame.Color object.")
         self._out_color = new_color
 
-    def handle_key_press(self, key):
-        if key == pygame.K_1:  # If the '1' key is pressed
-            self.in_color = pygame.Color("red")
-        elif key == pygame.K_2:  # If the '2' key is pressed
-            self.in_color = pygame.Color("green")
+    def handle_key_press(self, event):
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_1:  # If the '1' key is pressed
+                self.in_color = pygame.Color("red")
+            elif event.key == pygame.K_2:  # If the '2' key is pressed
+                self.in_color = pygame.Color("green")
+        
+        elif event.type == pygame.KEYUP:
+            if event.key == pygame.K_1:  # If the '1' key is released
+                self.in_color = pygame.Color("green")  # Reset to green when the key is released
+
 
     def draw(self, screen: pygame.Surface):
         """Draw a buzzer. Square with a centered Circle inside"""
