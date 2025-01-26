@@ -4,7 +4,16 @@ from Object import Object
 from Circle import Circle
 from Text import Text
 
-def display_container(container: Container, window_size=(800, 600), background_color=(30, 30, 30)):
+import random
+
+# Generate a random color
+random_color = pygame.Color(
+    random.randint(0, 255),  # Random Red component
+    random.randint(0, 255),  # Random Green component
+    random.randint(0, 255)   # Random Blue component
+)
+
+def display_container(container):
     """
     Displays all objects in the container, including nested containers, within a Pygame window.
 
@@ -15,18 +24,9 @@ def display_container(container: Container, window_size=(800, 600), background_c
     """
     # Initialize Pygame
     pygame.init()
-    screen = pygame.display.set_mode(window_size)
+    screen = pygame.display.set_mode(container.window_size, pygame.RESIZABLE)
     pygame.display.set_caption("Container Display")
     clock = pygame.time.Clock()
-
-    def render_objects(current_container: Container):
-        """Recursively renders all objects, including nested containers."""
-        for obj in current_container.get_objects():
-            if isinstance(obj, (Circle, Text)):
-                obj.draw(screen)
-            elif isinstance(obj, Container):
-                # Recursively render nested containers
-                render_objects(obj)
 
     # Main loop
     running = True
@@ -37,10 +37,57 @@ def display_container(container: Container, window_size=(800, 600), background_c
                 running = False
 
         # Clear the screen
-        screen.fill(background_color)
+        screen.fill(container.background_color)
 
-        # Render all objects starting from the root container
-        render_objects(container)
+        #draw container
+        container.draw(screen)
+
+        # Update the display iterativ
+        pygame.display.flip()
+        clock.tick(60)  # Limit to 60 frames per second
+
+    # Quit Pygame
+    pygame.quit()
+
+def display_container_dyn(container):
+    """
+    Displays all objects in the container, including nested containers, within a Pygame window.
+
+    Args:
+        container (Container): The container holding objects to display.
+    """
+    # Initialize Pygame
+    pygame.init()
+    screen = pygame.display.set_mode(container.window_size, pygame.RESIZABLE)
+    pygame.display.set_caption("Container Display")
+    clock = pygame.time.Clock()
+
+    # Main loop
+    running = True
+    while running:
+        # Handle events
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:  # Check for key press
+                if event.key == pygame.K_g:  # Check if the 'G' key is pressed
+                    print("The 'G' key was pressed!")
+                    # Trigger desired behavior here
+                    for obj in container.get_objects():
+                        if isinstance(obj, Circle):
+                            # Generate a random color
+                            random_color = pygame.Color(
+                                random.randint(0, 255),  # Random Red component
+                                random.randint(0, 255),  # Random Green component
+                                random.randint(0, 255)   # Random Blue component
+                            )
+                            obj.color = random_color  # Change color of the circle
+
+        # Clear the screen
+        screen.fill(container.background_color)
+
+        # Draw the container
+        container.draw(screen)
 
         # Update the display
         pygame.display.flip()
@@ -48,7 +95,6 @@ def display_container(container: Container, window_size=(800, 600), background_c
 
     # Quit Pygame
     pygame.quit()
-
 
 
 if __name__ == "__main__":
@@ -88,4 +134,4 @@ if __name__ == "__main__":
     root_container.add_object(nested_container1)
 
     # Display the container
-    display_container(root_container)
+    display_container_dyn(root_container)

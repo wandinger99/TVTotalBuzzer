@@ -11,11 +11,17 @@ class Container(Object):
     Represents a container that manages a list of objects.
     It can add or remove objects of the `Object` class.
     """
-    def __init__(self, 
-                 position: pygame.Vector2 = pygame.Vector2(0, 0), 
-                 visible: bool = True):
+    def __init__(
+        self, 
+        position: pygame.Vector2 = pygame.Vector2(0, 0), 
+        visible: bool = True,
+        window_size: tuple[int, int] = (300, 300), 
+        background_color: pygame.Color = pygame.Color(30, 30, 30)
+    ):
         super().__init__(position, visible)
         self._objects: List[Object] = []
+        self._window_size = window_size
+        self._background_color = background_color
 
     def add_object(self, obj: Object):
         """Adds an object to the container."""
@@ -58,7 +64,34 @@ class Container(Object):
         for obj in self._objects:
             obj.visible = is_visible  # Ensure contained objects match visibility
 
+    @property
+    def window_size(self) -> tuple[int, int]:
+        """Getter for the window size."""
+        return self._window_size
 
+    @window_size.setter
+    def window_size(self, size: tuple[int, int]):
+        """Setter for the window size."""
+        if not (isinstance(size, tuple) and len(size) == 2 and all(isinstance(dim, int) and dim > 0 for dim in size)):
+            raise ValueError("window_size must be a tuple of two positive integers.")
+        self._window_size = size
+
+    @property
+    def background_color(self) -> pygame.Color:
+        """Getter for the background color."""
+        return self._background_color
+
+    @background_color.setter
+    def background_color(self, color: pygame.Color):
+        """Setter for the background color."""
+        if not isinstance(color, pygame.Color):
+            raise TypeError("background_color must be of type pygame.Color.")
+        self._background_color = color
+
+    def draw(self, screen):
+        """Draws all objects contained in this container."""
+        for obj in self.get_objects():
+            obj.draw(screen)  # Call the draw method of each object
     
 
 if __name__ == "__main__":
