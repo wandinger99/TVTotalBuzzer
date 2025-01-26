@@ -6,50 +6,6 @@ from Text import Text
 from Rectangle import Rectangle
 from Buzzer import Buzzer
 
-import random
-
-# Generate a random color
-random_color = pygame.Color(
-    random.randint(0, 255),  # Random Red component
-    random.randint(0, 255),  # Random Green component
-    random.randint(0, 255)   # Random Blue component
-)
-
-def display_container(container):
-    """
-    Displays all objects in the container, including nested containers, within a Pygame window.
-
-    Args:
-        container (Container): The container holding objects to display.
-        window_size (tuple): The size of the Pygame window (width, height).
-        background_color (tuple): The background color of the window (R, G, B).
-    """
-    # Initialize Pygame
-    pygame.init()
-    screen = pygame.display.set_mode(container.window_size, pygame.RESIZABLE)
-    pygame.display.set_caption("Container Display")
-    clock = pygame.time.Clock()
-
-    # Main loop
-    running = True
-    while running:
-        # Handle events
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                running = False
-
-        # Clear the screen
-        screen.fill(container.background_color)
-
-        #draw container
-        container.draw(screen)
-
-        # Update the display iterativ
-        pygame.display.flip()
-        clock.tick(60)  # Limit to 60 frames per second
-
-    # Quit Pygame
-    pygame.quit()
 
 def display_container_dyn(container):
     """
