@@ -74,7 +74,7 @@ def display_container_dyn(container):
                     print("The 'G' key was pressed!")
                     # Trigger desired behavior here
                     for obj in container.get_objects():
-                        if isinstance(obj, Circle):
+                        if isinstance(obj, (Circle, Text)):
                             # Generate a random color
                             random_color = pygame.Color(
                                 random.randint(0, 255),  # Random Red component
