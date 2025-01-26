@@ -15,7 +15,7 @@ class Container(Object):
         self, 
         position: pygame.Vector2 = pygame.Vector2(0, 0), 
         visible: bool = True,
-        window_size: tuple[int, int] = (300, 300), 
+        window_size: tuple[int, int] = (800, 800), 
         background_color: pygame.Color = pygame.Color(30, 30, 30)
     ):
         super().__init__(position, visible)

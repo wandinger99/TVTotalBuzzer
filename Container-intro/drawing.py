@@ -4,6 +4,7 @@ from Object import Object
 from Circle import Circle
 from Text import Text
 from Rectangle import Rectangle
+from Buzzer import Buzzer
 
 import random
 
@@ -98,11 +99,13 @@ if __name__ == "__main__":
     # Create objects for the first nested container
     circle3 = Circle(position=pygame.Vector2(400, 300), radius=40, color=pygame.Color("blue"))
     text2 = Text(position=pygame.Vector2(380, 280), text="Nested 1", color=pygame.Color("yellow"), fontsize=50)
+    buzzer = Buzzer((10,10))
 
     # Create the first nested container
     nested_container1 = Container(position=pygame.Vector2(0, 0))
     nested_container1.add_object(circle3)
     nested_container1.add_object(text2)
+    nested_container1.add_object(buzzer)
 
     # Create objects for the second nested container
     circle4 = Circle(position=pygame.Vector2(500, 400), radius=30, color=pygame.Color("purple"))
