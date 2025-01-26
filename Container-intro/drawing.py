@@ -3,6 +3,7 @@ from Container import Container
 from Object import Object
 from Circle import Circle
 from Text import Text
+from Rectangle import Rectangle
 
 import random
 
@@ -106,11 +107,14 @@ if __name__ == "__main__":
     # Create objects for the second nested container
     circle4 = Circle(position=pygame.Vector2(500, 400), radius=30, color=pygame.Color("purple"))
     text3 = Text(position=pygame.Vector2(480, 380), text="Nested 2", color=pygame.Color("cyan"))
+    rectangle1 = Rectangle(position=pygame.Vector2(200, 800))
+
 
     # Create the second nested container
     nested_container2 = Container(position=pygame.Vector2(0, 0))
     nested_container2.add_object(circle4)
     nested_container2.add_object(text3)
+    nested_container2.add_object(rectangle1)
 
     # Add a nested container inside another nested container
     nested_container1.add_object(nested_container2)
