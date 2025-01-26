@@ -1,16 +1,4 @@
-import def handle_key_press(self, key: int):
-        """
-        Handles key press events to change the circle's color.
-
-        Args:
-            key (int): The key code of the pressed key.
-        """
-        if key == pygame.K_1:  # If the '1' key is pressed
-            self.color = pygame.Color("red")
-        elif key == pygame.K_2:  # If the '2' key is pressed
-            self.color = pygame.Color("green")
-        elif key == pygame.K_3:  # If the '3' key is pressed
-            self.color = pygame.Color("blue")pygame
+import pygame
 from typing import Tuple
 from Object import Object
 
@@ -51,7 +39,19 @@ class Circle(Object):
         """Changes the radius by the given amount (can be positive or negative)."""
         self.radius = max(0, self._radius + amount)
 
-    
+    def handle_key_press(self, key: int):
+        """
+        Handles key press events to change the circle's color.
+
+        Args:
+            key (int): The key code of the pressed key.
+        """
+        if key == pygame.K_1:  # If the '1' key is pressed
+            self.color = pygame.Color("red")
+        elif key == pygame.K_2:  # If the '2' key is pressed
+            self.color = pygame.Color("green")
+        elif key == pygame.K_3:  # If the '3' key is pressed
+            self.color = pygame.Color("blue")
 
     def draw(self, screen: pygame.Surface):
         """Draw the circle on the given screen."""
