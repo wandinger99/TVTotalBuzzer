@@ -1,7 +1,10 @@
 import unittest
 import pygame
-from Object import Object, Circle, Text
-from Container import Container# Import Container class
+
+from Object import Object
+from Circle import Circle
+from Text import Text
+from Container import Container
 
 class TestObject(unittest.TestCase):
     def test_object_initialization(self):

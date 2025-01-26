@@ -1,5 +1,8 @@
 import pygame
-from Container import Container, Circle, Text
+from Container import Container
+from Object import Object
+from Circle import Circle
+from Text import Text
 
 def display_container(container: Container, window_size=(800, 600), background_color=(30, 30, 30)):
     """
@@ -19,14 +22,8 @@ def display_container(container: Container, window_size=(800, 600), background_c
     def render_objects(current_container: Container):
         """Recursively renders all objects, including nested containers."""
         for obj in current_container.get_objects():
-            if isinstance(obj, Circle):
-                # Draw the circle
-                pygame.draw.circle(screen, obj.color, (int(obj.position.x), int(obj.position.y)), obj.radius)
-            elif isinstance(obj, Text):
-                # Render the text
-                font = pygame.font.Font(None, 36)  # Default font and size
-                text_surface = font.render(obj.text, True, obj.color)
-                screen.blit(text_surface, (int(obj.position.x), int(obj.position.y)))
+            if isinstance(obj, (Circle, Text)):
+                obj.draw(screen)
             elif isinstance(obj, Container):
                 # Recursively render nested containers
                 render_objects(obj)
@@ -64,7 +61,7 @@ if __name__ == "__main__":
 
     # Create objects for the first nested container
     circle3 = Circle(position=pygame.Vector2(400, 300), radius=40, color=pygame.Color("blue"))
-    text2 = Text(position=pygame.Vector2(380, 280), text="Nested 1", color=pygame.Color("yellow"))
+    text2 = Text(position=pygame.Vector2(380, 280), text="Nested 1", color=pygame.Color("yellow"), fontsize=50)
 
     # Create the first nested container
     nested_container1 = Container(position=pygame.Vector2(0, 0))

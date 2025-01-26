@@ -1,7 +1,9 @@
 import pygame
 import logging
 from typing import List
-from Object import Object, Circle, Text
+from Object import Object
+from Circle import Circle
+from Text import Text
 
 
 class Container(Object):
@@ -9,7 +11,9 @@ class Container(Object):
     Represents a container that manages a list of objects.
     It can add or remove objects of the `Object` class.
     """
-    def __init__(self, position: pygame.Vector2 = pygame.Vector2(0, 0), visible: bool = True):
+    def __init__(self, 
+                 position: pygame.Vector2 = pygame.Vector2(0, 0), 
+                 visible: bool = True):
         super().__init__(position, visible)
         self._objects: List[Object] = []
 
