@@ -12,7 +12,8 @@ class Buzzer(Object):
                 in_color_inactive: pygame.Color = pygame.Color("green"),
                 in_color_active: pygame.Color = pygame.Color("red"),
                 out_color: pygame.Color = pygame.Color("gray"),
-                trigger_key: str = '1'   # Which key triggers color change
+                trigger_key: str = '1',   # Which key triggers color change
+                sound: str = "buzzer.wav"   # muss eine .wav datei sein
                 ):
         super().__init__(position, visible)
         self._size = size  # Tuple for width and height
@@ -21,6 +22,7 @@ class Buzzer(Object):
         self._in_color_active = in_color_active
         self._out_color = out_color
         self._trigger_key = trigger_key
+        self._sound = sound
         
         # Falls position kein Vector2 ist, wird sie hier konvertiert
         if not isinstance(self.position, pygame.Vector2):
@@ -107,8 +109,20 @@ class Buzzer(Object):
     def trigger_key(self, new_key: str):
         """Setter for the trigger key."""
         if not isinstance(new_key, str):
-            raise TypeError("Trigger key must be an integer.")
+            raise TypeError("Trigger key must be an string.")
         self._trigger_key = new_key
+
+    @property
+    def sound(self) -> str:
+        """Getter for the sound."""
+        return self._sound
+    
+    @sound.setter
+    def sound(self, new_sound: str):
+        """Setter for the sound. Has to be a .wav file"""
+        if not isinstance(new_sound, str):
+            raise TypeError("Sound must be an string.")
+        self._sound = new_sound
 
     def handle_key_press(self, event):
         """
@@ -117,6 +131,8 @@ class Buzzer(Object):
         Args:
             event: The Pygame event object.
         """
+        pygame.mixer.init()
+        sound = pygame.mixer.Sound(self.sound)
         # Dynamically convert the trigger_key to the correct Pygame key code
         trigger = getattr(pygame, 'K_' + self.trigger_key, None)  # Get the pygame key code from the string
 
@@ -126,6 +142,7 @@ class Buzzer(Object):
         if event.type == pygame.KEYDOWN:
             if event.key == trigger:  # If the trigger key is pressed
                 self._in_color = self.in_color_active  # Change color to active
+                sound.play()
         elif event.type == pygame.KEYUP:
             if event.key == trigger:  # If the trigger key is released
                 self._in_color = self.in_color_inactive  # Reset to inactive color when key is released
